@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hat's Store</title>
+</head>
+<body>
+
+<form method="POST" th:action="@{'/hats/{id}' (id=${hat?.id})}">
+    <div>
+        <label for="name">Name</label>
+        <input type="text"
+               id="name"
+               name="name"
+               th:value="${hat?.name}"
+               required>
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <input type="text"
+               id="description"
+               name="description"
+               th:value="${hat?.description}"
+               required>
+    </div>
+    <div>
+        <label for="price">Price</label>
+        <input type="number"
+               id="price"
+               name="price"
+               th:value="${hat?.price}"
+               required>
+    </div>
+    <div>
+        <label>Hat Type</label><br/>
+        <select id="type" name="type">
+            <option th:each="type: ${type}" th:text="${type.toString()}" th:value="${type}"> [type.name]</option>
+        </select>
+    </div>
+    <div>
+        <label>Store Location</label><br/>
+        <select id="storeLocation" name="storeLocation">
+            <option value="[storeLocation.id]"
+                    th:each="storeLocation: ${storeLocation}"
+                    th:value="${storeLocation.id}"
+                    th:selected="${emp?.storeLocation?.contains(storeLocation)}"
+                    th:text="${storeLocation.name}"> [storeLocation.name]</option>
+        </select>
+    </div>
+
+    <button id="submit" type="submit">Submit</button>
+    <a id="back" href="/matches" type="button" class="btn btn-primary">Back to matches</a>
+</form>
+
+<div>
+    <ul id="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

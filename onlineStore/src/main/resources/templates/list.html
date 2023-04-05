@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hat's Store</title>
+</head>
+<body>
+
+<div>
+
+    <form id="filter-form">
+        <label for="price">Price</label>
+        <input id="price" type="number" name="price"/>
+        <label for="type">Type</label>
+        <select id="type" name="type">
+            <option value="">All</option>
+            <option th:each="type: ${type}" th:value="${type}" th:text="${type.toString()}"> [type.name]</option>
+        </select>
+        <button id="filter" type="submit">Filter</button>
+    </form>
+    <div>
+
+        <a th:href="@{'/hats/add'}" class="add-item">
+            Add new hat
+        </a>
+    </div>
+    <table>
+        <tr>
+            <th>Hat name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Follows</th>
+            <th>Actions</th>
+        </tr>
+        <tr class="item" th:each="hat: ${hat}">
+            <td th:text="${hat.name}">[hat.name]</td>
+            <td th:text="${hat.description}">[hat.description]</td>
+            <td th:text="${hat.price}">[hat.price]</td>
+            <td th:text="${hat.type}">[hat.type]</td>
+            <td th:text="${hat.location}">[hat.location]</td>
+
+            <td>
+
+                <form method="POST" th:action="@{'/hats/{id}/delete' (id=${hat.id})}">
+                    <button type="submit" class="delete-item">Delete</button>
+                </form>
+
+                <a class="edit-item" th:href="@{'/hats/{id}/edit' (id=${hat.id})}">Edit</a>
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div>
+    <ul id="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</div>
+</body>
+</html>
